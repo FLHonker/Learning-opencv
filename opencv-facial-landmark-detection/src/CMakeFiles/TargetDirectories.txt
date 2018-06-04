@@ -1,0 +1,3 @@
+/home/frank/Study/opencv-study/opencv-facial-landmark-detection-master/src/CMakeFiles/rebuild_cache.dir
+/home/frank/Study/opencv-study/opencv-facial-landmark-detection-master/src/CMakeFiles/FaceMark.dir
+/home/frank/Study/opencv-study/opencv-facial-landmark-detection-master/src/CMakeFiles/edit_cache.dir
