@@ -16,7 +16,7 @@
 |image pyramid|图像金字塔  |high-pass	 |高通|
 |convolve	|v. 卷积		|pixels			|像素|
 |aperture	|光圈			|intensity		|强度|
-|demonstrate|证明，演示	     |Magnitude	     |大小|
+|demonstrate|证明，演示	  |Magnitude	  |大小|
 |manipulate	|v. 操作		|delve			|钻研|
 |investigate|调查			|primitive		|原始的|
 |arbitrary	|随意			|epicenter		|震中心|
@@ -27,8 +27,12 @@
 |range		|范围			|scalar			|标量|
 |utility	|效用			|align			|v. 对齐|
 |overwhelming|压倒性		|alternative	|替代|
-|sparse		|稀疏的		|algebraic		|代数|
+|sparse		|稀疏的		|algebraic		|代数的|
 |subregion	|子区域		|correspond		|v. 对应|
 |plane		|平面			|contiguous		|邻近的	|
 |chunks		|块			 |discontinuity	 |中断|
 |trivial	|不重要的		|individual		|个人|
+|diagonal	|对角线		|capability		|功能|
+|distinction|分别,不同		|evaluate		|评估|
+|assign		|分配			|inversion		|逆置|
+|Saturation Casting|饱和构件|
