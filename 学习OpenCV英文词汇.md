@@ -35,4 +35,11 @@
 |diagonal	|对角线		|capability		|功能|
 |distinction|分别,不同		|evaluate		|评估|
 |assign		|分配			|inversion		|逆置|
-|Saturation Casting|饱和构件|
+|Saturation Casting|饱和构件|discrete cosine transform(DCT)|离散余弦变换|
+|determinant|行列式		|discrete Fourier transform(DFT)|离散傅里叶变换|
+|eigenvalue	|特征值		|inverse discrete cosine transform(IDCT)|逆离散余弦变换|
+|eigenvector|特征向量		|inverse discrete Fourier transform(IDFT)|逆离散傅里叶变换|
+|flip		|v. 翻转		|generalized	|广义的，一般的|
+|lookup table|查找表		|deviation		|偏差|
+|linear equations|线性方程组|prototype		|原型|
+|
