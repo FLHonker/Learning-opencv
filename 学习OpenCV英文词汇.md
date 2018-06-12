@@ -41,5 +41,7 @@
 |eigenvector|特征向量		|inverse discrete Fourier transform(IDFT)|逆离散傅里叶变换|
 |flip		|v. 翻转		|generalized	|广义的，一般的|
 |lookup table|查找表		|deviation		|偏差|
-|linear equations|线性方程组|prototype		|原型|
+|linear equations|线性方程组|prototype	  |原型|
+|[covariance](http://jermmy.xyz/2017/03/19/2017-3-19-covariance-matrix/)|协方差|radian 	|弧度		|
+|polar		|极性			|extract		|v. 提取|
 |
