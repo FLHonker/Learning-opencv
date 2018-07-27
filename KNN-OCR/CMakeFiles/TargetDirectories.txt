@@ -1,0 +1,3 @@
+/home/frank/Study/opencv-study/KNN/CMakeFiles/rebuild_cache.dir
+/home/frank/Study/opencv-study/KNN/CMakeFiles/KNN.dir
+/home/frank/Study/opencv-study/KNN/CMakeFiles/edit_cache.dir

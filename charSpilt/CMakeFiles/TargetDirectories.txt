@@ -1,0 +1,3 @@
+/home/frank/Study/opencv-study/charSpilt/CMakeFiles/rebuild_cache.dir
+/home/frank/Study/opencv-study/charSpilt/CMakeFiles/charSpilt.dir
+/home/frank/Study/opencv-study/charSpilt/CMakeFiles/edit_cache.dir
