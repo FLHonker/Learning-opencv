@@ -45,3 +45,4 @@
 |[covariance](http://jermmy.xyz/2017/03/19/2017-3-19-covariance-matrix/)|协方差|radian 	|弧度		|
 |polar		|极性			|extract		|v. 提取|
 |cluttered  |凌乱的；混乱的   |Singular Value Decomposition(SVD)|奇异值分解|
+|
