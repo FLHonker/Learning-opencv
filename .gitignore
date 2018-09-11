@@ -1,5 +1,6 @@
 # out
 out/
+*.out
 
 # Prerequisites
 *.d
