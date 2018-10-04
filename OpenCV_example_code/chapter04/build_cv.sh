@@ -21,7 +21,7 @@ then
     fi
     outfile="$3"
 fi
-g++ -std=c++11 "$1" -o "$outfile" `pkg-config --cflags --libs opencv`
+g++ -std=c++11 "$1" `pkg-config --cflags --libs opencv` -o "$outfile"
 if [ $? == 0 ]
 then
     echo "Build cv code successfully!"
