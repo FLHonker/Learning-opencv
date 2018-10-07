@@ -20,7 +20,7 @@ using namespace cv;
 
 bool SobelVerEdge(Mat src, Mat& dst)
 {
-    CV_ASSERT(src.channels() == 1);
+    CV_Assert(src.channels() == 1);
     src.convertTo(src, CV_32FC1);
     // 水平方向的Sobel算子
     Mat sobelX = (Mat_<float>(3,3) << -0.125, 0, 0.125,
@@ -63,7 +63,7 @@ bool SobelVerEdge(Mat src, Mat& dst)
 
 bool sobelEdge(const Mat& src, Mat& dst, uchar threshold)
 {
-    CV_ASSERT(srcc.channels() == 1);
+    CV_Assert(src.channels() == 1);
     // 初始化水平核因子
     Mat sobelX = (Mat_<double>(3,3) << 1, 0, -1, 
                                        2, 0, -2, 
@@ -102,7 +102,7 @@ bool sobelEdge(const Mat& src, Mat& dst, uchar threshold)
 
 bool sobelOptaEdge(const Mat& src, Mat& dst, int flag)
 {
-    CV_ASSERT(src.channels() == 1);
+    CV_Assert(src.channels() == 1);
     // 初始化Sobel水平核因子
     Mat sobelX = (Mat_<double>(3,3) << 1, 0, -1,
                                        2, 0, -2,
@@ -110,9 +110,78 @@ bool sobelOptaEdge(const Mat& src, Mat& dst, int flag)
     // 初始化Sobel垂直核因子
     Mat sobelY = (Mat_<double>(3,3) << 1, 2, 1, 
                                        0, 0, 0,
-                                       1, 0, -1);
+                                       1, -2, -1);
     // 计算水平与垂直卷积
     Mat edgeX, edgeY;
     filter2D(src, edgeX, CV_32F, sobelX);
+    filter2D(src, edgeY, CV_32F, sobelY);
+    // 根据传入参数确定计算水平或垂直边缘
+    int paraX = 0, paraY = 0;
+    switch(flag)
+    {
+    case 0:
+        paraX = 1;
+        paraY = 0;
+        break;
+    case 1:
+        paraX = 0;
+        paraY = 1;
+        break;
+    case 2:
+        paraX = 1;
+        paraY = 1;
+        break;
+    default: break;
+    }
+    edgeX = abs(edgeX);
+    edgeY = abs(edgeY);
+    Mat graMagMat = paraX * edgeX.mul(edgeX) + paraY * edgeY.mul(edgeY);
+    // 计算阈值
+    int scaleVal = 4;
+    double thresh = scaleVal * mean(graMagMat).val[0];
+    dst = Mat::zeros(src.size(), src.type());
+    for(int i = 1; i < src.rows - 1; ++i)
+    {
+        float* pDataEdgeX = edgeX.ptr<float>(i);
+        float* pDataEdgeY = edgeY.ptr<float>(i);
+        float* pDataGraMag = graMagMat.ptr<float>(i);
+        // 阈值化和极大值抑制
+        for(int j = 1; j < src.cols - 1; ++j)
+        {
+            // 判断当前邻域梯度是否大于阈值与大于水平或垂直梯度
+            if(pDataGraMag[j] > thresh && (
+            (pDataEdgeX[j] > paraX * pDataEdgeY[j] && 
+             pDataGraMag[j] > pDataGraMag[j-1] && 
+             pDataGraMag[j] > pDataGraMag[j+1]) ||
+            (pDataEdgeY[j] > paraY * pDataEdgeX[j] &&
+             pDataGraMag[j] > pDataGraMag[j-1] &&
+             pDataGraMag[j] > pDataGraMag[j+1])))
+                dst.at<uchar>(i,j) = 255;
+        }
+    }
+    return true;
+}
 
+//test
+int main()
+{
+    Mat srcImg = imread("../../imgdata/building.jpg", 0);
+    if(srcImg.empty())
+        return -1;
+    imshow("srcImage", srcImg);
+    Mat resultImg;
+    // 方法1：非极大值抑制细化竖直Sobel检测
+    SobelVerEdge(srcImg, resultImg);
+    imshow("SobelVerEdge", resultImg);
+    Mat resultImg2;
+    // 方法2：图像直接卷积实现Sobel检测
+    sobelEdge(srcImg, resultImg2, 100);
+    imshow("sobelEdge", resultImg2);
+    Mat resultImg3;
+    int flag = 2;
+    // 方法3：图像卷积下非极大值抑制
+    sobelOptaEdge(srcImg, resultImg3, flag);
+    imshow("sobelOptaEdge", resultImg3);
+    waitKey(0);
+    return 0;
 }
