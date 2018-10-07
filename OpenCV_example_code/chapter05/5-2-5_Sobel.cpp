@@ -10,13 +10,13 @@
 # @Create Time: 2018-10-07 13:01:52
 # @Last Modified: 2018-10-07 13:01:52
 ***********************************************/
-#include<opencv2/core/core.hpp>
+#include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
 using namespace cv;
 
-/*****××**** 1.非极大值抑制实现Sobel数值细化边缘 ************/
+/*********** 5-2. 非极大值抑制实现Sobel数值细化边缘 ************/
 
 bool SobelVerEdge(Mat src, Mat& dst)
 {
@@ -59,6 +59,60 @@ bool SobelVerEdge(Mat src, Mat& dst)
     return true;
 }
 
-/**************** 2.图像直接卷积实现Sobel ********************/
+/**************** 5-3. 图像直接卷积实现Sobel ********************/
 
+bool sobelEdge(const Mat& src, Mat& dst, uchar threshold)
+{
+    CV_ASSERT(srcc.channels() == 1);
+    // 初始化水平核因子
+    Mat sobelX = (Mat_<double>(3,3) << 1, 0, -1, 
+                                       2, 0, -2, 
+                                       1, 0, -1);
+    // 初始化垂直核因子
+    Mat sobelY = (Mat_<double>(3,3) << 1, 2, 1,
+                                       0, 0, 0,
+                                       -1, -2, -1);
+    dst = Mat::zeros(src.rows - 2, src.cols - 2, src.type());  
+    double edgeX = 0, edgeY = 0, graMag = 0;
+    for(int k = 1; k < src.rows - 1; ++k)
+    {
+        for(int n = 1; n < src.cols - 1; ++n)
+        {
+            edgeX = 0;
+            edgeY = 0;
+            // 遍历计算水平和垂直梯度
+            for(int i = -1; i <= 1; ++i)
+            {
+                for(int j = -1; j <= 1; ++j)
+                {
+                    edgeX += src.at<uchar>(k+i, n+j) * sobelX.at<double>(i+1, j+1);
+                    edgeY += src.at<uchar>(k+i, n+j) * sobelY.at<double>(i+1, j+1);
+                }
+            }
+            // 计算梯度模长
+            graMag = sqrt(pow(edgeX, 2) + pow(edgeX, 2));
+            // 二值化
+            dst.at<uchar>(k-1, n-1) = graMag > threshold? 255 : 0;
+        }
+    }
+    return true;
+}
 
+/************* 5-4. 图像卷积实现Sobel非极大值抑制 **************/
+
+bool sobelOptaEdge(const Mat& src, Mat& dst, int flag)
+{
+    CV_ASSERT(src.channels() == 1);
+    // 初始化Sobel水平核因子
+    Mat sobelX = (Mat_<double>(3,3) << 1, 0, -1,
+                                       2, 0, -2,
+                                       1, 0, -1);
+    // 初始化Sobel垂直核因子
+    Mat sobelY = (Mat_<double>(3,3) << 1, 2, 1, 
+                                       0, 0, 0,
+                                       1, 0, -1);
+    // 计算水平与垂直卷积
+    Mat edgeX, edgeY;
+    filter2D(src, edgeX, CV_32F, sobelX);
+
+}
