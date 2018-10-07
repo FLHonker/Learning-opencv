@@ -19,6 +19,12 @@
 using namespace std;
 using namespace cv;
 
+/**
+ * @brief 旋转文本校正
+ * 
+ * @param src
+ * @param dst
+ */
 void rotatedTextCorrection(const Mat src, Mat& dst)
 {
     /***************** 1.图像DFT尺寸变换 *******************/
