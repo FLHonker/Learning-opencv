@@ -6,7 +6,7 @@
 # @Filename: 5-8_Roberts.cpp
 # @Version：V1.0
 # @Author: Frank Liu - frankliu624@gmail.com
-# @Description: 边缘检测——Roberts算子
+# @Description: 基本边缘检测算子——Roberts
 # @Create Time: 2018-10-08 21:56:14
 # @Last Modified: 2018-10-08 21:56:14
 ***********************************************/

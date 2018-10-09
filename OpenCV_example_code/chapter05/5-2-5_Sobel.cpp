@@ -6,7 +6,7 @@
 # @Filename: 5-2-5_Sobel.cpp
 # @Version：V1.0
 # @Author: Frank Liu - frankliu624@gmail.com
-# @Description: Sobel边缘检测算子
+# @Description: 基本边缘检测算子——Sobel
 # @Create Time: 2018-10-07 13:01:52
 # @Last Modified: 2018-10-07 13:01:52
 ***********************************************/

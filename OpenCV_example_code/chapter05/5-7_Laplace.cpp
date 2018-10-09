@@ -6,7 +6,7 @@
 # @Filename: 5-7_Laplace.cpp
 # @Version：V1.0
 # @Author: Frank Liu - frankliu624@gmail.com
-# @Description: 边缘检测——Laplace算子
+# @Description: 基本边缘检测算子——Laplace
 # @Create Time: 2018-10-08 21:35:52
 # @Last Modified: 2018-10-08 21:35:52
 ***********************************************/
