@@ -12,7 +12,6 @@
 ***********************************************/
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
-//#include <opencv2/features2d/features2d.hpp>
 #include <opencv2/xfeatures2d/nonfree.hpp>
 #include <vector>
 
@@ -33,20 +32,20 @@ Mat cacSIFTFeatureAndCompare(Mat src1, Mat src2)
     normalize(grayMat1, grayMat1, 0, 255, NORM_MINMAX);
     normalize(grayMat2, grayMat2, 0, 255, NORM_MINMAX);
     // 定义SIFT描述子
-    SiftFeatureDetector detector;
-    SiftDescriptorExtractor extractor;
+    Ptr<SiftFeatureDetector> detector = SiftFeatureDetector::create();
+    Ptr<SiftDescriptorExtractor> extractor = SiftDescriptorExtractor::create();
     // 特征点检测
     vector<KeyPoint> keypoints1, keypoints2;
-    detector.detect(grayMat1, keypoints1);
-    detector.detect(grayMat2, keypoints2);
+    detector->detect(grayMat1, keypoints1);
+    detector->detect(grayMat2, keypoints2);
     // 计算特征点的描述子
     Mat descriptors1, descriptors2;
-    extractor.compute(grayMat1, keypoints1, descriptors1);
-    extractor.compute(grayMat2, keypoints2, descriptors2);
+    extractor->compute(grayMat1, keypoints1, descriptors1);
+    extractor->compute(grayMat2, keypoints2, descriptors2);
     // 特征点匹配
     vector<DMatch> matches;
-    BFMatcher bfmatcher(NORM_HAMMING);
-    bfmatcher.match(descriptors1, descriptors2, matches);
+    FlannBasedMatcher matcher;
+    matcher.match(descriptors1, descriptors2, matches);
     // 二分排序
     int N = 80;
     nth_element(matches.begin(), matches.begin()+N-1, matches.end());
@@ -62,7 +61,7 @@ Mat cacSIFTFeatureAndCompare(Mat src1, Mat src2)
 int main()
 {
     Mat srcImg1 = imread("../../imgdata/hand1.jpg", 1);
-    Mat srcImg2 = imread("../../imgdata/hand2.jpg", 1);
+    Mat srcImg2 = imread("../../imgdata/hand3.jpg", 1);
     if(srcImg1.empty() || srcImg2.empty())
         return -1;
     // SIFT特征描述

@@ -1,0 +1,43 @@
+// C++ source file
+/***********************************************
+# Copyright (c) 2018, Wuhan
+# All rights reserved.
+#
+# @Filename: 8-11_LBP_circle.cpp
+# @Version：V1.0
+# @Author: Frank Liu - frankliu624@gmail.com
+# @Description: 圆形LBP特征
+# @Create Time: 2018-10-28 13:01:30
+# @Last Modified: 2018-10-28 13:01:30
+***********************************************/
+template <typename _Tp> static
+inline void elbp_(InputArray _src, OutputArray _dst, int radius, int neighbors)
+{
+    // 得到数据矩阵
+    Mat src = _src.getMat();
+    // 输出矩阵
+    _dst.create(src.rows-2*radius, src.cols-2*radius, CV_32SC1);
+    Mat dst = _dst.getMat();
+    // 初始化
+    dst.setTo(0);
+    for(int n = 0; n < neighbors; ++n)
+    {
+        // 相同点
+        float x = static_cast<float>(-radius*sin(2.0*CV_PI*n/static_cast<float>(neighbors)));
+        float y = static_cast<float>(radius*cos(2.0*CV_PI*n/static_cast<float>(neighbors)));
+        // 相关索引
+        int fx = static_cast<int>(floor(x));
+        int fy = static_cast<int>(floor(y));
+        int cx = static_cast<int>(ceil(x));
+        int cy = static_cast<int>(ceil(x));
+        // 小数部分
+        float tx = x - fx, ty = y - fy;
+        // 集插值权重
+        float w1 = (1 - tx) * (1 - ty);
+        float w2 = tx * (1 - ty);
+        float w3 = (1- tx) * ty;
+        float w4 = tx * ty;
+        // 遍历数据
+        
+    }
+}
