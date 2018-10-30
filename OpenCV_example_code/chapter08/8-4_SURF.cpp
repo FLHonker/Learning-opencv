@@ -21,7 +21,7 @@ using namespace std;
 using namespace cv::xfeatures2d;
 
 // 计算图像的SURF特征及匹配
-float cacSURFFeatureAndCompare(Mat src1, Mat src2)
+float cacSURFFeatureAndCompare(Mat src1, Mat src2, float param)
 {
     CV_Assert(!src1.empty() && !src2.empty());
     // 转为灰度
@@ -29,7 +29,7 @@ float cacSURFFeatureAndCompare(Mat src1, Mat src2)
     cvtColor(src1, grayMat1, CV_BGR2GRAY);
     cvtColor(src2, grayMat2, CV_BGR2GRAY);
     // 初始化SURF检测描述子
-    Ptr<SurfFeatureDetector> surfDetector = SurfFeatureDetector::create();
+    Ptr<SurfFeatureDetector> surfDetector = SurfFeatureDetector::create(param);
     Ptr<SurfDescriptorExtractor> surfExtractor = SurfDescriptorExtractor::create();
     // 关键点及特征描述矩阵声明
     vector<KeyPoint> keypoints1, keypoints2;
@@ -89,7 +89,7 @@ int main()
     if(srcImg1.empty() || srcImg2.empty())
         return -1;
     // 计算SURF特征及匹配
-    float matchRate = cacSURFFeatureAndCompare(srcImg1, srcImg2);
+    float matchRate = cacSURFFeatureAndCompare(srcImg1, srcImg2, 1000);
     cout << "matchRate:" << matchRate <<endl;
     return 0;
 }
