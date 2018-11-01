@@ -35,3 +35,5 @@ out/
 *.out
 *.app
 
+# large files
+*.caffemodel
